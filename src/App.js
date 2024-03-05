@@ -7,15 +7,17 @@ function App() {
   const [weather, setWeather] = useState({});
   const [city, setCity] = useState('');
 
+  const api_key = process.env.REACT_APP_API_KEY;
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=haldwani&appid=1d5280fea8f76b758d6b121c238f2287')
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=haldwani&appid=${api_key}`)
       const data = await response.json()
       setWeather(data)
     }
 
     fetchData();
-  }, []);
+  },[]);
 
   const obj = {
     main: {
@@ -31,7 +33,7 @@ function App() {
   }
 
   const fetchData = async () => {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1d5280fea8f76b758d6b121c238f2287`)
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}`)
     const data = await response.json()
     if (data && data.main && data.main.temp) {
       setWeather(data);
